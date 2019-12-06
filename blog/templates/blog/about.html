@@ -1,0 +1,41 @@
+{% extends "blog/base.html" %}
+{% block content %}
+	<header class="bg-info text-white" style="padding: 125px 0 100px;">
+		<div class="container text-center">
+		  <h1 class="text-white">Bookish</h1>
+		  <p class="lead">For the love of books, self-development and impacting peoples' lives through reading and learning!</p>
+		  <p class="lead">By Abdulrahman Jalloh</p>
+		</div>
+	</header><br>
+
+	<div class="container padding">
+		<div class="row padding">
+			<div class="col-lg-6">
+				<p class="lead">Bookish was created out of the desire to help students, workers and ordinary people get free access to books that will aide them in their studies, research, personal development and also free educational contents' links or free online courses. Here, you can share, download and grow!</p>
+			</div>
+			<div class="col-lg-6">
+				<img src='\media\bookapple.jpg' class="img-fluid"  style="border: solid; border-width: 10px; border-color: grey;">
+			</div>
+		</div>
+	</div><br>
+	<section id="about">
+	    <div class="container">
+	      <div class="row">
+	      	<div class="col-md-4">
+	      		<img src='\media\comps.jpg' class="img-fluid"  style="border: solid; border-width: 10px; border-color: grey;">
+	      	</div>
+	        <div class="col-md-4">
+	          <ul>
+	            <li><a href="{% url 'book_list' %}">Download Free Books</a> in pdfs.</li>
+	            <li><a href="{% url 'upload_book' %}"> Share a Book</a> in pdf.</li>
+	            <li><a href="{% url 'post_url' %}">Share a link</a> to an educational content.</li>
+	            <li><a href="{% url 'useful' %}">Access links</a> to educational and useful contents</li>
+	          </ul>
+	        </div>
+	        <div class="col-md-4">
+	      		<img src='\media\images.jpg' class="img-fluid"  style="border: solid; border-width: 10px; border-color: grey;">
+	      	</div>
+	      </div>
+	    </div>
+	</section><br>
+{% endblock content %}

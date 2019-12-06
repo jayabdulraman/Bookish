@@ -1,0 +1,47 @@
+{% extends "blog/base.html" %}
+{% block content %}
+	<div class="content-section col-sm-8">
+		<h4 class="mb-3">Books by category "<i>{{ view.kwargs.category }}</i>"</h4>
+	</div>
+	<div class="row">
+		{% for book in books %}
+		  	<div class="col-md-4">
+			    <div class="card">
+		    	   <div class="embed-responsive embed-responsive-16by9">
+		    		   <img class="card-img-top embed-responsive-item" src="{{ book.cover.url }}" alt="{{ book.title }}">
+		    	   </div>
+				    <div class="card-body">
+				      	<div>
+					        <a href="{% url 'book_detail' book.id %}" class="card-title mr-2">{{ book.title }}</a><br>
+					        <small class="text-muted"><i>Author: {{ book.author }}</i></small>
+					        <p class="card-text"><b>Category:</b> {{ book.category }}</p>
+						</div><br>
+				        <a href="{{ book.pdf.url }}" class="btn btn-primary btn-sm" target="_blank">Download PDF</a>
+						{% if book.uploaded_by == user %}
+							<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'book_delete' book.id %}">Delete</a>
+						{% endif %}
+				    </div>
+				</div>
+			</div><br>
+		{% endfor %}
+	</div><br>
+    {% if is_paginated %}
+	   {% if page_obj.has_previous %}
+	      <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+	   {% endif %}
+
+	   {% for num in page_obj.paginator.page_range %}
+	   	  {% if page_obj.number == num %}
+	   	  	<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	   	  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+	   	    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	   	  {% endif %}
+	   {% endfor %}
+	   {% if page_obj.has_next %}
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+	   {% endif %}
+
+	{% endif %}	
+{% endblock content %}

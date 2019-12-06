@@ -1,0 +1,75 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+	<!--- Jumbotron -->
+	<div class="container" id="service" >
+		<div class="content-section col-sm-12" style="background-image: url('./media/keybook.jpg'); background-size: cover; object-fit: cover;">
+			{% with book=books|first %}
+				<h3 class="mb-3 text-center"><a href="{%  url 'african_author' book.african_author %}" style="color: black;">Books by African Authors</a></h3>
+			{% endwith %}
+		</div>
+		<div class="row">
+			<div class="jumbotron col-md-12" style="background-image: url('./media/download.jpg'); background-size: cover; object-fit: cover;">
+				<div class="text-center text-white">
+					<h2 class="text-white">Free Books</h2>
+					<p class="lead">Download free books to aid you in your studies, research, projects and development as a person.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if request.GET.q %}
+		<div class="content-section col-sm-8">
+			<p class="lead">Results for "{{ request.GET.q }}" below:</p>
+		</div>
+	{% endif %}
+	<div class="row">
+		{% for book in books %}
+		  	<div class="col-md-4">
+			    <div class="card">
+			    	<!-- {% if book.cover %} -->
+		    	   <div class="embed-responsive embed-responsive-16by9">
+		    		   <img class="card-img-top embed-responsive-item" src="{{ book.cover.url }}" alt="{{ book.title }}">
+		    	   </div>
+			    	<!-- {% else %}
+			    	{% endif %} -->
+				    <div class="card-body">
+				      	<div>
+					        <a href="{% url 'book_detail' book.id %}" class="card-title mr-2">{{ book.title }}</a><br>
+					        <small class="text-muted"><i>Author: {{ book.author }}</i></small>
+						</div><br>
+				        <a href="{{ book.pdf.url }}" class="btn btn-primary btn-sm" target="_blank">Download PDF</a>
+						<!-- <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'book_delete' book.pk %}">Delete</a> -->
+				    </div>
+				</div><br>
+		    </div>
+	    {% endfor %}
+	</div><br>
+	{% if is_paginated %}
+	   {% if page_obj.has_previous %}
+	      <a class="btn btn-outline-info mb-4" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">First</a>
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
+	   {% endif %}
+
+	   {% for num in page_obj.paginator.page_range %}
+	   	  {% if page_obj.number == num %}
+	   	  	<a class="btn btn-info mb-4" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+	   	  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+	   	    <a class="btn btn-outline-info mb-4" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+	   	  {% endif %}
+	   {% endfor %}
+	   {% if page_obj.has_next %}
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Last</a>
+	   {% endif %}
+
+	{% endif %}
+
+
+{% endblock %}
+
+
+
+
+
+	

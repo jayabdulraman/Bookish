@@ -1,0 +1,73 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+	<div class="content-section">
+		<h4 class="mb-3">Useful <i>"{{ view.kwargs.category }}" links/url</i></h4>
+	</div>
+	<div class="row">
+		{% for link in useful %}
+		  	<div class="col-md-4">
+			    <div class="card">
+			    	<div class="media" style="margin: 4px;">
+		    		   <img class="rounded-circle article-img" src="{{ link.logo.url }}" alt="{{ use.title }}">
+		    		   <div class="media-body">
+			    		   <a href="{% url 'post_update' link.id %}" class="card-title mr-2">{{ link.title }}</a><br>
+			    		   <small class="text-muted"><i>Posted by: <a href="{% url 'user_links' link.uploaded_by %}">{{ link.uploaded_by }}</a></i></small>
+		    			</div>
+		    		</div>
+				    <div class="card-body">
+				      	<div>
+					        <p class="card-text"><b>Category:</b><a href="{% url 'useful_category' link.category %}"> {{ link.category }} </a></p>
+						</div><br>
+						<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#{{ link.id }}" data-id="{{ link.id }}">View more</button>
+						{% if link.uploaded_by == user %}
+							<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post_delete' link.id %}">Delete</a>
+						{% endif %}
+				    </div>
+				</div><br>
+		    </div>
+		    <!-- Modal -->
+			<div class="modal fade" id="{{ link.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLongTitle">{{ link.title }}</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+		        	<div>
+				        <p class="modal-text">{{ link.description }}</p>
+					</div><br>
+					<b>URL: </b><a href="{{ use.url_link }}" target="_blank" class="border rounded p-2 bg-white my-2"> {{ link.url_link }}</a>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		{% endfor %}
+	</div><br>
+	{% if is_paginated %}
+	   {% if page_obj.has_previous %}
+	      <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+	   {% endif %}
+
+	   {% for num in page_obj.paginator.page_range %}
+	   	  {% if page_obj.number == num %}
+	   	  	<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	   	  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+	   	    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	   	  {% endif %}
+	   {% endfor %}
+	   {% if page_obj.has_next %}
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+	   {% endif %}
+
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+	<!--- Jumbotron -->
+	<div class="container" id="service">
+		<div class="row">
+			<div class="jumbotron col-md-12">
+				<div>
+					<h2>Useful Posts</h2>
+					<p class="lead">Here, you'll find links to online courses, websites suitable for research, projects and assignment purposes. You also have the ability to share any link meant for educational purposes. Click the button below.</p>
+				</div>
+				<div>
+					<a href="{% url 'post_url' %}" class="btn btn-outline-secondary btm-lg">Share Link</a>
+				</div><br>
+				<div class="row justify-content-center align-items-center">
+					{% include 'useful_links/form.html' %}
+				</div><br>
+				<div class="row justify-content-center align-items-center">
+					{% if request.GET.q %}
+						<div class="content-section col-sm-6">
+							<p class="lead">Results for "{{ request.GET.q }}" below:</p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+		{% for use in useful %}
+		  	<div class="col-sm-4 col-md-4 col-lg-4">
+			    <div class="card">
+			        <span style="margin: 3px;">
+		    		   <img class="rounded-circle article-img" src="{{ use.logo.url }}" alt="{{ use.title }}">
+		    		   <a href="{% url 'post_update' use.id %}" class="card-title mr-2">{{ use.title }}</a>
+		    		</span>
+				    <div class="card-body">
+				    	<p class="card-text"> {{ use.description|truncatewords:6 }} </p>
+				    	<p class="card-text"><b>Category: </b>{{ use.category }}</p>
+				      	<div>
+					        <small class="text-muted"><i>Posted by: <a href="{% url 'user_links' use.uploaded_by %}">{{ use.uploaded_by }}</a></i></small>
+						</div><br>
+				        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#{{ use.id }}" data-id="{{ use.id }}">View more</button>
+				    </div>
+				</div><br>
+				 
+		    </div>
+		    <!-- Modal -->
+			<div class="modal fade" id="{{ use.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLongTitle">{{ use.title }}</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+		        	<div>
+				        <p class="modal-text">{{ use.description }}</p>
+					</div><br>
+					<b>URL: </b><a href="{{ use.url_link }}" target="_blank" class="border rounded p-2 bg-white my-2"> {{ use.url_link }}</a>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		{% endfor %}
+	</div>
+	{% if is_paginated %}
+	   {% if page_obj.has_previous %}
+	      <a class="btn btn-outline-info mb-4" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">First</a>
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
+	   {% endif %}
+
+	   {% for num in page_obj.paginator.page_range %}
+	   	  {% if page_obj.number == num %}
+	   	  	<a class="btn btn-info mb-4" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+	   	  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+	   	    <a class="btn btn-outline-info mb-4" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+	   	  {% endif %}
+	   {% endfor %}
+	   {% if page_obj.has_next %}
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
+	      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Last</a>
+	   {% endif %}
+
+	{% endif %}	
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+	<form method="GET" action="{% url 'book_category' %}" enctype="multipart/form-data">
+		<div class="form-group col-md-4">
+		    <label for="category">Category</label>
+		    <select id="category" class="form-control" name="category">
+		      <option selected>Choose...</option>
+		      {% for cat in books %}
+		      	<option value="{{ cat.category }}">{{ cat.category }}</option>
+		      {% endfor %}
+		    </select>
+		    <button type="submit" class="btn btn-info">Submit</button>
+		</div>
+	</form>
+
+{% endblock content %}

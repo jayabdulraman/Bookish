@@ -1,0 +1,28 @@
+{% extends "blog/base.html" %}
+{% block content %}
+	<div class="row">
+	  	<div class="col-md-8">
+		    <div class="card">
+	    	   <div class="embed-responsive embed-responsive-16by9">
+	    		   <img class="card-img-top embed-responsive-item" src="{{ book.cover.url }}" alt="{{ book.title }}">
+	    	   </div>
+			    <div class="card-body">
+			      	<div>
+				        <h2 class="card-title">{{ book.title }}</h2><br>
+				        <small class="text-muted"><i>Author: {{ book.author }}</i></small>
+					</div>
+			        <p class="card-text">{{ book.description }}</p>
+			        <p class="card-text"><b>Category:</b> <a href="{% url 'book_category' book.category %}">{{ book.category }}</a></p>
+			        <a href="{{ book.pdf.url }}" class="btn btn-primary btn-sm" target="_blank">Download PDF</a>
+			        {% if book.uploaded_by == user %}
+						<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'book_delete' book.id %}">Delete</a>
+					{% endif %}
+					<div class="text-muted float-right">
+						<small><i>Uploaded on: {{ book.date_uploaded|date:"F d, Y" }}</i></small><br>
+						<small><i>Uploaded by: <a href="{% url 'user_books' book.uploaded_by %}">{{ book.uploaded_by }}</a></i></small>
+					</div>
+			    </div>
+			</div>
+	    </div>
+	</div><br><br>
+{% endblock content %}

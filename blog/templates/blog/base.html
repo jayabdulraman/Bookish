@@ -1,0 +1,262 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% if title %}
+		<title>Bookish - {{ title }}</title>
+	{% else %}
+		<title>Bookish - Download free books and Post useful urls</title>
+	{% endif %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+</head>
+<body>
+	<header class="site-header">
+		<nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
+			<div class="container">
+				<a class="navbar-brand mr-4" href="{% url 'book_list' %}">Bookish</a>
+				<button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-secondary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+	        			Menu
+	        		<i class="fa fa-bars"></i>
+	    		</button>
+		        <div class="collapse navbar-collapse" id="navbarResponsive">
+		        	<div class="navbar-nav mr-auto">
+		        		<a class="nav-item nav-link" href="{% url 'book_list' %}"><i class="fa fa-fw fa-home" aria-hidden="true"></i>&nbsp;Home</a>
+		        		<a class="nav-item nav-link" href="{% url 'blog-about' %}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;About</a>
+		        	</div>
+		        	<!-- Navbar Right Side -->
+		        	<div class="navbar-nav">
+		        		{% include 'books/form.html' %}&nbsp;
+		        		{% if user.is_authenticated %}
+		        			<li class="dropdown nav-item nav-link">
+				              <a href="#" class="dropdown-toggle nav-item nav-link" data-toggle="dropdown">
+				              	<i class="fa fa-cloud-upload" aria-hidden="true"></i>&nbsp;Upload
+				              </a>
+				              <ul class="dropdown-menu nav-item bg-info">
+				                <li><a class="nav-link" href="{% url 'upload_book' %}"><i class="fa fa-cloud-upload" aria-hidden="true"></i>&nbsp;Upload Book</a>
+				                </li>
+				                <li><a class="nav-link" href="{% url 'post_url' %}"><i class="fa fa-external-link-square" aria-hidden="true"></i>&nbsp;Upload Link</a>
+				                </li>
+				              </ul>
+	        				</li>
+	        				<div class="navbar-nav nav-item nav-link">
+		        				<a class="nav-item nav-link" href="{% url 'useful' %}"><i class="fa fa-external-link-square" aria-hidden="true"></i>&nbsp;Useful Links</a>
+		        			</div>
+		        			<li class="dropdown nav-item nav-link">
+				              <a href="#" class="dropdown-toggle nav-item nav-link" data-toggle="dropdown">
+				              	<i class="fa fa-user" aria-hidden="true"></i>&nbsp;Account
+				              </a>
+				              <ul class="dropdown-menu nav-item bg-info">
+				                <li><a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;Profile</a>
+				                </li>
+				                <li><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>
+				                </li>
+				              </ul>
+		        		{% else %}
+		        			<li class="dropdown nav-item nav-link">
+				              <a href="#" class="dropdown-toggle nav-item nav-link" data-toggle="dropdown">
+				              	<i class="fa fa-cloud-upload" aria-hidden="true"></i>&nbsp;Upload
+				              </a>
+				              <ul class="dropdown-menu nav-item bg-info">
+				                <li><a class="nav-link" href="{% url 'upload_book' %}"><i class="fa fa-cloud-upload" aria-hidden="true"></i>&nbsp;Upload Book</a>
+				                </li>
+				                <li><a class="nav-link" href="{% url 'post_url' %}"><i class="fa fa-external-link-square" aria-hidden="true"></i>&nbsp;Upload Link</a>
+				                </li>
+				              </ul>
+	        				</li>
+		        			<div class="navbar-nav nav-item nav-link">
+		        				<a class="nav-item nav-link" href="{% url 'useful' %}"><i class="fa fa-external-link-square" aria-hidden="true"></i>&nbsp;Useful Links</a>
+		        			</div>
+		        			<li class="dropdown nav-item nav-link">
+				              <a href="#" class="dropdown-toggle nav-item nav-link" data-toggle="dropdown">
+				              	<i class="fa fa-user" aria-hidden="true"></i>&nbsp;Account
+				              </a>
+				              <ul class="dropdown-menu nav-item bg-info">
+				                <li><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</a>
+				                </li>
+				                <li><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Register</a>
+				                </li>
+				              </ul>
+	        				</li>
+		        		{% endif %}
+	        		</div>	
+	        	</div>
+	        </div>
+		</nav>
+	</header>
+
+	<main role="main" class="container">
+		<div class="row">
+			<div class="col-md-9" id="welcome">
+				{% if messages %}
+					{% for message in messages %}
+						<div class="alert alert-{{ message.tags }}">
+							{{ message }}
+						</div>
+					{% endfor %}
+				{% endif %}
+				{% block content %} {% endblock %}
+			</div>
+			<div class="col-md-3">
+				<div style="position: -webkit-sticky; position: sticky; top: 0;">
+					<div class="content-section">
+						<h4>Categories</h4>
+						<ul class="list-group">
+						  	{% for link in books|dictsort:'category' %}
+						  		{% ifchanged %}
+						  			<li class="list-group-item list-group-item-light"><a href="{% url 'book_category' link.category %}">{{ link.category }}</a></li>
+						  		{% endifchanged %}
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="content-section">
+						<h5>Useful links category</h5>
+						<ul class="list-group ">
+						  	{% for cat in useful|dictsort:'category' %}
+						  		{% ifchanged %}
+						  			<li class="list-group-item list-group-item-light"><a href="{% url 'useful_category' cat.category %}">{{ cat.category }}</a></li>
+						  		{% endifchanged %}
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main><br><br>
+
+	<!-- Footer -->
+	<footer class="page-footer font-small bg-dark text-white">
+
+	  <div style="background-color: #6351ce;">
+	    <div class="container">
+
+	      <!-- Grid row-->
+	      <div class="row py-4 d-flex align-items-center">
+
+	        <!-- Grid column -->
+	        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+	          <h6 class="mb-0 text-white">Get connected with me on social networks!</h6>
+	        </div>
+	        <!-- Grid column -->
+
+	        <!-- Grid column -->
+	        <div class="social col-md-6 col-lg-7 text-center text-md-right">
+
+	          <!-- Facebook -->
+	          <a href="#">
+	            <i class="fa fa-facebook-f mr-4"> </i>
+	          </a>
+	          <!-- Twitter -->
+	          <a href="#">
+	            <i class="fa fa-github mr-4"> </i>
+	          </a>
+	          <!--Linkedin -->
+	          <a href="#">
+	            <i class="fa fa-linkedin mr-4"> </i>
+	          </a>
+	          <!--mail-->
+	          <a href="#">
+	            <i class="fa fa-envelope mr-4" style="color: white;"> </i>
+	          </a>
+	        </div>
+	        <!-- Grid column -->
+
+	      </div>
+	      <!-- Grid row-->
+
+	    </div>
+	  </div>
+
+	  <!-- Footer Links -->
+	  <div class="container text-center text-md-left mt-5">
+
+	    <!-- Grid row -->
+	    <div class="row mt-3">
+
+	      <!-- Grid column -->
+	      <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+	        <!-- Content -->
+	        <h6 class="text-uppercase font-weight-bold text-white">Bookish</h6>
+	        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+	        <p>Bookish was created out of the desire to help students, workers and ordinary people get access to books that will aide them in their studies, research, personal development and also get access to educational contents links or free online courses. Here, you can share, download and grow!</p>
+
+	      </div>
+	      <!-- Grid column -->
+
+	      <!-- Grid column -->
+	      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+	        <!-- Links -->
+	        <h6 class="text-uppercase font-weight-bold text-white">Useful links</h6>
+	        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+	        <p>
+	          <a href="{% url 'profile' %}" style="text-decoration: none;">Your Account</a>
+	        </p>
+	        <p>
+	          <a href="{% url 'upload_book' %}" style="text-decoration: none;">Share a book</a>
+	        </p>
+	        <p>
+	          <a href="{% url 'post_url' %}" style="text-decoration: none;">Share a useful link</a>
+	        </p>
+	        <p>
+	          <a href="{% url 'useful' %}" style="text-decoration: none;">Important links</a>
+	        </p>
+	        {% if not user.is_authenticated %}
+		        <p>
+		          <a href="{% url 'register' %}" style="text-decoration: none;">Register an Account</a>
+		        </p>
+		    {% endif %}
+
+	      </div>
+	      <!-- Grid column -->
+
+	      <!-- Grid column -->
+	      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+	        <!-- Links -->
+	        <h6 class="text-uppercase font-weight-bold text-white">Contact</h6>
+	        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+	        <p>
+	          <i class="fa fa-fw fa-home mr-3"></i> 21 Lumley St., Freetown, SL</p>
+	        <p>
+	          <i class="fa fa-envelope mr-3"><a class="new" href="mailto:infogrow99@gmail.com" style="text-decoration: none;"></i> infogrow99@gmail.com</a></p>
+	        <p>
+	          <i class="fa fa-phone mr-3"></i> + 232 78 877 625</p>
+
+	      </div>
+	      <!-- Grid column -->
+
+	    </div>
+	    <!-- Grid row -->
+
+	  </div>
+	  <!-- Footer Links -->
+
+	  <!-- Copyright -->
+	  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+	    <a href="#" style="text-decoration: none;"> Terms & Conditions</a>
+	  </div><br>
+	  <!-- Copyright -->
+
+	</footer>
+	<!-- Footer -->
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

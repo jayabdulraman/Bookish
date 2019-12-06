@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="content-section">
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Update Useful Link</legend>
+				{{ form|crispy }}
+			</fieldset>
+			<div class="form-group">
+				{% if object.uploaded_by == user %}
+					<button class="btn btn-outline-info" type="submit">Update</button>
+					<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post_delete' object.id %}" style="margin-left: 10px;">Delete</a>
+				{% else %}
+					<p class="text-danger">You cannot update or delete this post as it is not yours!</p>
+				{% endif %}
+			</div>
+		</form>
+	</div>
+{% endblock content %}
+
