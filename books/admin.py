@@ -9,6 +9,6 @@ class BookAdmin(admin.ModelAdmin):
 
 	filter_horizontal = ()
 	list_filter = ('date_uploaded', 'category')
-	fieldsets = ()
+	# fieldsets = ()
 
 admin.site.register(Book, BookAdmin)
