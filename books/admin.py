@@ -5,10 +5,10 @@ from .models import Book
 class BookAdmin(admin.ModelAdmin):
 	list_display = ('title', 'author', 'cover', 'category', 'uploaded_by', 'date_uploaded')
 	search_fields = ('title', 'author', 'description', 'category')
-	readonly_fields = ('date_uploaded')
+	# readonly_fields = ('uploaded_by', 'date_uploaded')
 
 	filter_horizontal = ()
 	list_filter = ('date_uploaded', 'category')
-	# fieldsets = ()
+	fieldsets = ()
 
 admin.site.register(Book, BookAdmin)
