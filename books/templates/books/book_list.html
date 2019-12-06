@@ -6,7 +6,7 @@
 	<div class="container" id="service" >
 		<div class="content-section col-sm-12" style="background-image: url('./media/keybook.jpg'); background-size: cover; object-fit: cover;">
 			{% with book=books|first %}
-				<h3 class="mb-3 text-center"><a href="{%  url 'african_author' %}" style="color: black;">Books by African Authors</a></h3>
+				<h3 class="mb-3 text-center"><a href="{%  url 'african_author' book.african_author.Yes %}" style="color: black;">Books by African Authors</a></h3>
 			{% endwith %}
 		</div>
 		<div class="row">
