@@ -112,18 +112,24 @@ a.article-title:hover {
 /*---Media Queries --*/
 @media (max-width: 992px) {
   .card {
-    font-size: 13px;
+    font-size: 18px;
   }
  }
 
 @media (max-width: 768px) {
   .card {
-  	font-size: 20px;
+  	font-size: 15px;
+  }
+  .content-section {
+  	font-size: 13px;
   }
 }
 
 @media (max-width: 576px) {
   .card {
-  	font-size: 16px;
+  	font-size: 13px;
+  }
+  .content-section {
+  	font-size: 13px;
   }
 }
