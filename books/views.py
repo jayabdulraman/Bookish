@@ -85,10 +85,9 @@ class AfricanBookListView(ListView):
 	def get_queryset(self):
 		user = Book
 		if user is not None:
-			object_list = user.objects.filter(african_author=self.kwargs.get('african_author')).order_by('-date_uploaded')
+			object_list = user.objects.filter(african_author__iexact='Yes').order_by('-date_uploaded')
 		else:
 			object_list = Book.objects.all().order_by('-date_uploaded')
-		print("Query: ", object_list)
 		return object_list
 
 
