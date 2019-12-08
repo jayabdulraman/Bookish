@@ -4,13 +4,13 @@
 {% block content %}
 	<!--- Jumbotron -->
 	<div class="container" id="service" >
-		<div class="content-section col-sm-12" style="background-image: url('keybook.jpg'); background-size: cover; object-fit: cover;">
+		<div class="content-section col-sm-12" style="background-image: url('./bookish-files/keybook.jpg'); background-size: cover; object-fit: cover;">
 			{% with book=books|first %}
 				<h3 class="mb-3 text-center"><a href="{% url 'afri_author' book.african_author %}" style="color: black;">Books by African Authors</a></h3>
 			{% endwith %}
 		</div>
 		<div class="row">
-			<div class="jumbotron col-md-12" style="background-image: url('download.jpg'); background-size: cover; object-fit: cover;">
+			<div class="jumbotron col-md-12" style="background-image: url('./bookish-files/download.jpg'); background-size: cover; object-fit: cover;">
 				<div class="text-center text-white">
 					<h2 class="text-white">Free Books</h2>
 					<p class="lead">Download free books to aid you in your studies, research, projects and development as a person.</p>
