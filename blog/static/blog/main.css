@@ -4,7 +4,6 @@ html, body{
   width: 100%;
   background: #fafafa;
   color: #333333;
-  margin-top: 3rem;
 }
 
 .navbar{
@@ -121,6 +120,9 @@ a.article-title:hover {
   .card {
     font-size: 18px;
   }
+  html, body {
+    margin-top: 3px !important;
+  }
  }
 
 @media (max-width: 768px) {
@@ -134,7 +136,7 @@ a.article-title:hover {
   	font-size: 15px;
   }
   html, body {
-  	margin-top: 5px !important;
+  	margin-top: 7px !important;
   }
   .head-form {
   	width: 100px !important;
@@ -150,5 +152,8 @@ a.article-title:hover {
   }
   h2, h3, h1 {
   	font-size: 16px;
+  }
+   html, body {
+    margin-top: 3px !important;
   }
 }
