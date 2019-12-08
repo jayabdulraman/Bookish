@@ -4,7 +4,6 @@ html, body{
   width: 100%;
   background: #fafafa;
   color: #333333;
-  margin-top: 3rem;
 }
 
 .navbar{
@@ -132,6 +131,9 @@ a.article-title:hover {
   }
   h2, h3, h1 {
   	font-size: 17px;
+  }
+  .head-form {
+  	width: 100px !important;
   }
 }
 
