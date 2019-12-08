@@ -128,7 +128,13 @@ a.article-title:hover {
   	font-size: 15px;
   }
   html, body {
-  	margin-top: 6rem;
+  	margin-top: 10rem;
+  }
+  .navbar {
+    font-size: 15px;
+  }
+  .head-form{
+    width: 100px;
   }
 }
 
