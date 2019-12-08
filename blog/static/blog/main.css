@@ -119,7 +119,7 @@ a.article-title:hover {
 
 @media screen and (max-width: 768px) {
   .card {
-  	font-size: 13px;
+  	font-size: 14px;
   }
   .content-section {
   	font-size: 14px;
@@ -128,13 +128,7 @@ a.article-title:hover {
   	font-size: 15px;
   }
   html, body {
-  	margin-top: 2rem;
-  }
-  .navbar {
-    font-size: 15px;
-  }
-  .head-form{
-    width: 100px;
+  	margin-top: 10rem;
   }
 }
 
