@@ -1,10 +1,7 @@
 
-html, body {
-  height: 100%;
-  width: 100%;
+body{
   background: #fafafa;
   color: #333333;
-  margin-top: 4rem;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -121,13 +118,13 @@ a.article-title:hover {
 
 @media (max-width: 768px) {
   .card {
-  	font-size: 14px;
+  	font-size: 16px;
   }
   .content-section {
-  	font-size: 14px;
+  	font-size: 16px;
   }
   h2, h3, h1 {
-  	font-size: 16px;
+  	font-size: 17px;
   }
 }
 
