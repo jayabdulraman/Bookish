@@ -50,6 +50,14 @@ class BookListView(ListView):
 	ordering = ['-date_uploaded']
 	paginate_by = 6
 
+
+class SearchListView(ListView):
+	model = Book
+	template_name = 'books/search.html'
+	context_object_name = 'books'
+	ordering = ['-date_uploaded']
+	paginate_by = 6
+
 	def get_queryset(self):
 		query = self.request.GET.get('q')
 		if query is not None:
@@ -58,7 +66,6 @@ class BookListView(ListView):
 		else:
 			object_list = Book.objects.all().order_by('-date_uploaded')
 		return object_list
-
 
 class UserBookListView(ListView):
 	"""List view that displays all posts on user_posts
@@ -78,7 +85,7 @@ class AfricanBookListView(ListView):
 	   Make changes at urls.py to direct path to UserPostListView
 	"""
 	model = Book
-	template_name = 'books/african_author.html' #<app>/<mode>_<viewtype>.html
+	template_name = 'books/african_authors_page.html' #<app>/<mode>_<viewtype>.html
 	context_object_name = 'books'
 	paginate_by = 3
 

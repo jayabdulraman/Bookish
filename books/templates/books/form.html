@@ -1,6 +1,6 @@
 {% block content %}
 
-	<form method="GET" action="{% url 'book_list' %}" class="form-inline my-2 my-lg-0" enctype="multipart/form-data">
+	<form method="GET" action="{% url 'search' %}" class="form-inline my-2 my-lg-0" enctype="multipart/form-data">
 		<input name="q" value="{{request.GET.q}}" class="form-control head-form" type="search" placeholder="search books.." style="width: 200px;">
 		<div class="input-group-append">
 			<button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
