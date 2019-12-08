@@ -125,13 +125,13 @@ a.article-title:hover {
 
 @media (max-width: 768px) {
   .card {
-  	font-size: 16px;
+  	font-size: 14px;
   }
   .content-section {
-  	font-size: 16px;
+  	font-size: 14px;
   }
   h2, h3, h1 {
-  	font-size: 17px;
+  	font-size: 15px;
   }
   html, body {
   	margin-top: 5rem !important;
@@ -143,7 +143,7 @@ a.article-title:hover {
 
 @media (max-width: 576px) {
   .card {
-  	font-size: 15px;
+  	font-size: 13px;
   }
   .content-section {
   	font-size: 13px;
