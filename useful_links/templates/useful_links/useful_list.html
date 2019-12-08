@@ -67,6 +67,10 @@
 			    </div>
 			  </div>
 			</div>
+		{% empty %}
+			<div class="content-section col-sm-8">
+				<p class="lead">No result for "{{ request.GET.q }}" found</p>
+			</div>
 		{% endfor %}
 	</div>
 	{% if is_paginated %}
