@@ -6,10 +6,6 @@
 		<div class="content-section col-sm-8">
 			<p class="lead">Results for "{{ request.GET.q }}" below:</p>
 		</div><br>
-	{% empty %}
-		<div class="content-section col-sm-8">
-			<p class="lead">No result for "{{ request.GET.q }}" found:</p>
-		</div>
 	{% endif %}
 	<div class="row">
 		{% for book in books %}
@@ -31,6 +27,10 @@
 				    </div>
 				</div><br>
 		    </div>
+		{% empty %}
+				<div class="content-section col-sm-8">
+					<p class="lead">No result for "{{ request.GET.q }}" found:</p>
+				</div>
 	    {% endfor %}
 	</div><br>
 	{% if is_paginated %}
