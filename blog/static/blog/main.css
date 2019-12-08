@@ -111,13 +111,13 @@ a.article-title:hover {
 }
 
 /*---Media Queries --*/
-@media (max-width: 992px) {
+@media screen and (max-width: 992px) {
   .card {
     font-size: 18px;
   }
  }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .card {
   	font-size: 13px;
   }
@@ -128,11 +128,11 @@ a.article-title:hover {
   	font-size: 15px;
   }
   html, body {
-  	margin-top: 5rem;
+  	margin-top: 6rem;
   }
 }
 
-@media only screen and (max-width: 576px) {
+@media screen and (max-width: 576px) {
   .card {
   	font-size: 14px;
   }
@@ -141,5 +141,8 @@ a.article-title:hover {
   }
   h2, h3, h1 {
   	font-size: 16px;
+  }
+  html, body {
+    margin-top: 2rem;
   }
 }
