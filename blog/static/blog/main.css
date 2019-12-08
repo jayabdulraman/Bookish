@@ -4,7 +4,7 @@ html, body{
   width: 100%;
   background: #fafafa;
   color: #333333;
-  margin-top: 3.5rem;
+  padding-top: 3.5rem;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -130,7 +130,7 @@ a.article-title:hover {
   	font-size: 15px;
   }
   html, body {
-  	margin-top: 7rem;
+  	margin-top: 5rem;
   }
   .head-form {
   	width: 100px;
