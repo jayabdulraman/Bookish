@@ -12,7 +12,7 @@
 				        <small class="text-muted"><i>Author: {{ book.author }}</i></small>
 					</div>
 			        <p class="card-text">{{ book.description }}</p>
-			        <p class="card-text"><b>Category:</b> <a href="{% url 'book_category' book.category %}">{{ book.category }}</a></p>
+			        <p class="card-text"><b><i>Genre:</i></b> <a href="{% url 'book_category' book.category %}">{{ book.category }}</a></p>
 			        <a href="{{ book.pdf.url }}" class="btn btn-primary btn-sm" target="_blank">Download PDF</a>
 			        {% if book.uploaded_by == user %}
 						<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'book_delete' book.id %}">Delete</a>

@@ -14,7 +14,7 @@
 				      	<div>
 					        <a href="{% url 'book_detail' book.id %}" class="card-title mr-2">{{ book.title }}</a><br>
 					        <small class="text-muted"><i>Author: {{ book.author }}</i></small>
-					        <p class="card-text"><b>Category:</b> {{ book.category }}</p>
+					        <p class="card-text"><b>Genre:</i></b> {{ book.category }}</p>
 						</div><br>
 				        <a href="{{ book.pdf.url }}" class="btn btn-primary btn-sm" target="_blank">Download PDF</a>
 						{% if book.uploaded_by == user %}
