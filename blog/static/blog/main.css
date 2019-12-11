@@ -110,6 +110,7 @@ a.article-title:hover {
 	font-size: 2.5rem;
 }
 
+
 /*---Media Queries --*/
 @media screen and (max-width: 992px) {
   .card {
@@ -119,7 +120,7 @@ a.article-title:hover {
 
 @media screen and (max-width: 768px) {
   .card {
-  	font-size: 11px;
+  	font-size: 18px;
   }
   .content-section {
   	font-size: 12px;
@@ -134,10 +135,10 @@ a.article-title:hover {
 
 @media screen and (max-width: 576px) {
   .card {
-  	font-size: 14px;
+  	font-size: 18px;
   }
   .content-section {
-  	font-size: 13px;
+  	font-size: 15px;
   }
   h2, h3, h1 {
   	font-size: 16px;
